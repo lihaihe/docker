@@ -12,8 +12,8 @@ RUN set -x; \
             python-pyinotify \
             python-renderpm \
             python-support \
-        && curl -o wkhtmltox.deb -SL http://nightly.odoo.com/extra/wkhtmltox-0.12.1.2_linux-jessie-amd64.deb \
-        && echo '40e8b906de658a2221b15e4e8cd82565a47d7ee8 wkhtmltox.deb' | sha1sum -c - \
+        &&  curl -o wkhtmltox.deb -SL  https://raw.githubusercontent.com/lihaihe/docker/master/8.0/deb/wkhtmltox.deb \
+        #&& echo '40e8b906de658a2221b15e4e8cd82565a47d7ee8 wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb \
         && apt-get -y install -f --no-install-recommends \
         && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
@@ -23,8 +23,8 @@ RUN set -x; \
 ENV ODOO_VERSION 8.0
 ENV ODOO_RELEASE 20151215
 RUN set -x; \
-        curl -o odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-        && echo '8d3454047891074cc0805d30f11dd393831d69d8 odoo.deb' | sha1sum -c - \
+        curl -o odoo.deb -SL https://raw.githubusercontent.com/lihaihe/docker/master/8.0/deb/odoo.deb \
+        #&& echo '8d3454047891074cc0805d30f11dd393831d69d8 odoo.deb' | sha1sum -c - \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
@@ -44,7 +44,7 @@ VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 EXPOSE 8069 8071
 
 # Set the default config file
-ENV OPENERP_SERVER /etc/odoo/openerp-server.conf
+#ENV OPENERP_SERVER /etc/odoo/openerp-server.conf
 
 # Set default user when running the container
 USER odoo
